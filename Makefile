@@ -89,6 +89,7 @@ endif
 ifndef HAS_MINIKUBE
 	$(error "Please install Minikube v1.0.0 or higher")
 endif
+	(minikube config set disk-size ${MINIKUBE_DISKSIZE} && minikube config set memory ${MINIKUBE_MEMORY}) &> /dev/null
 	minikube status --profile ${MINIKUBE_PROFILE} || minikube start --profile ${MINIKUBE_PROFILE} --vm-driver ${MINIKUBE_DRIVER} --cpus ${MINIKUBE_CPUS} --memory ${MINIKUBE_MEMORY} --disk-size ${MINIKUBE_DISKSIZE} --feature-gates="TTLAfterFinished=true"
 	helm init
 	test -e ${HOME}/.virtualenvs/${VENV_NAME}/bin/activate || virtualenv ${HOME}/.virtualenvs/${VENV_NAME}
